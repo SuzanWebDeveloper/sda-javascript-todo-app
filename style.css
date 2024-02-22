@@ -6,7 +6,7 @@
   list-style-type: none;
 }
 h1 {
-  margin-bottom:3rem;
+  margin-bottom: 3rem;
   color: #c58011;
 }
 .todos-container {
@@ -16,7 +16,7 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 3rem 30rem 0rem 30rem;
+  /* margin: 3rem 30rem 0rem 30rem; */
   padding: 5rem 0;
 }
 main::after {
@@ -29,7 +29,7 @@ input {
   display: block;
   margin: auto;
   max-width: 100%;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.5rem;
   margin-top: 0.2rem;
   padding: 0.4rem 0.5rem;
   border-color: #a9a9a9;
@@ -59,4 +59,13 @@ button:hover {
   align-items: center;
   justify-content: space-between;
   border-radius: 0.5rem;
+}
+
+.todos-sum {
+  margin-top: 0.5rem;
+}
+
+.todos-list {
+  margin-top: 1rem;
+  /* min-width: 50%; */
 }

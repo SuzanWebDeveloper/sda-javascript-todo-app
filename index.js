@@ -1,13 +1,14 @@
+//@ts-nocheck
+
 const todosList = document.querySelector('.todos-list');
 const addButton = document.querySelector('#add-btn');
 const todoInput = document.querySelector('#todo-input');
 const todosContainer = document.querySelector('.todos-container');
+const todosCount = document.querySelector('.todos-sum');
+const todoSearch = document.querySelector('#search-input');
+const searchForm = document.querySelector('.search');
 
-const todos = [
-  // { description: 'learn react js', completed: false },
-  // { description: 'learn typescript', completed: false },
-  // { description: 'learn nodde js', completed: false },
-];
+let todos = [];
 
 // display todos
 function displayTodos(todos) {
@@ -15,61 +16,64 @@ function displayTodos(todos) {
   if (todos.length === 0) {
     console.log('no todos found');
   } else {
-    for (let index = 0; index < todos.length; index++) {
-      // console.log(todos[index].description);
+    try {
+      for (let index = 0; index < todos.length; index++) {
+        // console.log(todos[index].description);
 
-      //create div for todo item
-      const todoItem = document.createElement('div');
-      todoItem.classList.add('todo'); //class todo for styling item--do later
+        //create div for todo item
+        const todoItem = document.createElement('div');
+        todoItem.classList.add('todo'); //class todo for styling item--do later
 
-      //create checkbox for todo item and add it to div(todoItem)
-      const todoCheckbox = document.createElement('input');
-      todoCheckbox.type = 'checkbox';
-      todoCheckbox.checked = todos[index].completed;
-      todoItem.appendChild(todoCheckbox);
+        //create checkbox for todo item and add it to div(todoItem)
+        const todoCheckbox = document.createElement('input');
+        todoCheckbox.type = 'checkbox';
+        todoCheckbox.checked = todos[index].completed;
+        todoItem.appendChild(todoCheckbox);
 
-      // create description for todo item and add it to div(todoItem)
-      const todoDescription = document.createElement('p');
-      todoDescription.textContent = todos[index].description;
-      todoItem.appendChild(todoDescription);
+        // create description for todo item and add it to div(todoItem)
+        const todoDescription = document.createElement('p');
+        todoDescription.textContent = todos[index].description;
+        todoItem.appendChild(todoDescription);
 
-      // buttons
-      // create delete Button and add ot to div(todoItem)
-      const todoDeleteButton = document.createElement('button');
-      todoDeleteButton.textContent = 'Delete';
-      todoDeleteButton.addEventListener('click', () => deleteTodo(index));
-      todoItem.appendChild(todoDeleteButton);
+        // buttons
+        // create delete Button and add ot to div(todoItem)
+        const todoDeleteButton = document.createElement('button');
+        todoDeleteButton.textContent = 'Delete';
+        todoDeleteButton.addEventListener('click', () => deleteTodo(index));
+        todoItem.appendChild(todoDeleteButton);
 
-      // create edit Button and add ot to div(todoItem)
-      const todoEditButton = document.createElement('button');
-      todoEditButton.textContent = 'Edit';
-      todoItem.appendChild(todoEditButton);
-      todoEditButton.addEventListener('click', () => editTodo(index));
+        // create edit Button and add ot to div(todoItem)
+        const todoEditButton = document.createElement('button');
+        todoEditButton.textContent = 'Edit';
+        todoItem.appendChild(todoEditButton);
+        todoEditButton.addEventListener('click', () => editTodo(index));
 
-      todosList.appendChild(todoItem);
+        todosList.appendChild(todoItem);
+      }
+
+      todosCount.textContent = `Number of todos: ${todos.length}`;
+    } catch (error) {
+      console.log('An error occured while fetching todo');
     }
-    sumtodos(todos.length);
   }
-}
-
-// display sum of todos
-function sumtodos(todosLength) {
-  //todosSum.innerHTML = '';
-  const todosSum = document.createElement('h3');
-  todosSum.textContent = `Number of Todos: ${todosLength}`;
-  todosContainer.appendChild(todosSum);
 }
 
 //add todo()
 function addTodo() {
-  const todoDescription = todoInput.value.trim();
-  if (todoDescription) {
-    const newTodo = {
-      description: todoDescription,
-      completed: false,
-    };
-    todos.push(newTodo);
-    displayTodos(todos);
+  try {
+    const todoDescription = todoInput.value.trim();
+    if (todoDescription) {
+      const newTodo = {
+        description: todoDescription,
+        completed: false,
+      };
+      todos.push(newTodo);
+      displayTodos(todos);
+      localStorage.setItem('todos', JSON.stringify(todos));
+      console.log(todos.length);
+    }
+  } catch (error) {
+    console.log('An error occured while adding todo');
   }
 }
 
@@ -77,12 +81,49 @@ function addTodo() {
 function deleteTodo(index) {
   todos.splice(index, 1);
   displayTodos(todos);
+  localStorage.setItem('todos', JSON.stringify(todos));
+  if (todos.length === 0)
+    todosCount.textContent = `Number of todos: ${todos.length}`;
 }
 
-//update todo
-function updateTodo() {
-  console.log('todo is updated');
+// //delete all todos
+// searchForm.addEventListener('submit', function (event) {
+//   console.log('hi');
+//   todosList.innerHTML = '';
+// });
+
+//edit todo
+function editTodo(index) {
+  try {
+    const updatedDescription = prompt('Edit Todo: ', todos[index].description);
+    if (updatedDescription) {
+      todos[index].description = updatedDescription;
+      localStorage.setItem('todos', JSON.stringify(todos));
+      displayTodos(todos);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+//search todo
+searchForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+});
+
+function loadDataFromLocalStorage() {
+  try {
+    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (storedTodos) {
+      todos = storedTodos;
+      displayTodos(todos);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadDataFromLocalStorage);
 
 addButton.addEventListener('click', addTodo);
 displayTodos(todos);

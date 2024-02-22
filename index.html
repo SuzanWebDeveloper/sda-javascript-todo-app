@@ -10,9 +10,16 @@
   <body>
     <div class="todos-container">
       <h1>Todo App</h1>
+
+      <form class="search">
+        <input type="text" id="search-input" placeholder="Search todo here" />
+        <button type="submit" class="button">Search</button>
+      </form>
+
       <input type="text" placeholder="Enter todo description" id="todo-input" />
       <button id="add-btn" role="button">Add Todo</button>
       <div class="todos-list"></div>
+      <p class="todos-sum"></p>
     </div>
     <script src="index.js"></script>
   </body>
