@@ -127,3 +127,7 @@ p {
   /* overflow: hidden; */
   /* color: #694a0e; */
 }
+
+.hidden {
+    display: none;
+}

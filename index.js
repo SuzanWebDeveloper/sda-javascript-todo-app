@@ -16,7 +16,7 @@ let todos = [];
 function displayTodos(todos) {
   todosList.innerHTML = '';
   if (todos.length === 0) {
-    console.log('no todos found');
+    // console.log('no todos found');
   } else {
     try {
       for (let index = 0; index < todos.length; index++) {
@@ -86,6 +86,8 @@ function addTodo() {
       displayTodos(todos);
       localStorage.setItem('todos', JSON.stringify(todos));
       console.log(todos.length);
+    } else {
+      alert('There no text to add');
     }
   } catch (error) {
     console.log('An error occured while adding todo');
@@ -128,10 +130,22 @@ function editTodo(index) {
 //search todo
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const serchString = todoInputSearch.value.trim();
-  if (serchString) {
-    alert('test');
+  const searchKey = todoInputSearch.value.trim();
+  if (searchKey) {
+    const todos = document.querySelectorAll('.todo');
+    // console.log(todos1);
+    todos.forEach(function (el) {
+      //console.log(el.textContent);
+      if (el.textContent.toLowerCase().indexOf(searchKey.toLowerCase()) > -1)
+        // console.log('found');
+        el.classList.remove('hidden');
+      //console.log(' not found');
+      else el.classList.add('hidden');
+    });
   }
+
+  //clear serch input and results ??
+  //todoInputSearch.value = '';
 });
 
 function loadDataFromLocalStorage() {
