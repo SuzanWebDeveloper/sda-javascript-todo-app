@@ -74,10 +74,9 @@ input {
   margin-top: 0.5rem;
   text-align: left;
   /* display: inline; */
-display:inline-table;
-
+  display: inline-table;
 }
-span{
+span {
   text-align: right;
 }
 
@@ -114,15 +113,17 @@ p {
   width: 70%;
 }
 
-#delete-all-btn{
+#delete-all-btn {
   display: none;
 }
 
-.fa-regular fa-trash-can{
-   background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
+.edit-btn,
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: medium;
+  /* overflow: hidden; */
+  /* color: #694a0e; */
 }

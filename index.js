@@ -54,17 +54,19 @@ function createTodoElement(todos, index) {
   todoItem.appendChild(todoDescription);
 
   // buttons
-  // create delete Button and add ot to div(todoItem)
-  const todoDeleteButton = document.createElement('button');
-  todoDeleteButton.innerHTML = 'delete';
-  todoDeleteButton.addEventListener('click', () => deleteTodo(index));
-  todoItem.appendChild(todoDeleteButton);
-
   // create edit Button and add ot to div(todoItem)
   const todoEditButton = document.createElement('button');
-  todoEditButton.textContent = 'Edit';
+  todoEditButton.innerHTML = `<i class="fa-regular fa-pen-to-square" style="color: #694a0e;"></i>`;
+  todoEditButton.classList.add('edit-btn');
   todoItem.appendChild(todoEditButton);
   todoEditButton.addEventListener('click', () => editTodo(index));
+
+  // create delete Button and add ot to div(todoItem)
+  const todoDeleteButton = document.createElement('button');
+  todoDeleteButton.innerHTML = `<i class="fa-regular fa-trash-can" style="color:#694a0e;"></i>`;
+  todoDeleteButton.classList.add('delete-btn');
+  todoDeleteButton.addEventListener('click', () => deleteTodo(index));
+  todoItem.appendChild(todoDeleteButton);
 
   todosList.appendChild(todoItem);
   //console.log(todoItem);
