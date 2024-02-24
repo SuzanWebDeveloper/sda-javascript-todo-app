@@ -5,8 +5,10 @@ const addButton = document.querySelector('#add-btn');
 const todoInput = document.querySelector('#todo-input');
 const todosContainer = document.querySelector('.todos-container');
 const todosCount = document.querySelector('.todos-sum');
-const todoSearch = document.querySelector('#search-input');
+const todoInputSearch = document.querySelector('#search-input');
 const searchForm = document.querySelector('.search');
+const deleteAllBtn = document.querySelector('#delete-all-btn');
+const footer = document.querySelector('.footer');
 
 let todos = [];
 
@@ -19,43 +21,53 @@ function displayTodos(todos) {
     try {
       for (let index = 0; index < todos.length; index++) {
         // console.log(todos[index].description);
-
-        //create div for todo item
-        const todoItem = document.createElement('div');
-        todoItem.classList.add('todo'); //class todo for styling item--do later
-
-        //create checkbox for todo item and add it to div(todoItem)
-        const todoCheckbox = document.createElement('input');
-        todoCheckbox.type = 'checkbox';
-        todoCheckbox.checked = todos[index].completed;
-        todoItem.appendChild(todoCheckbox);
-
-        // create description for todo item and add it to div(todoItem)
-        const todoDescription = document.createElement('p');
-        todoDescription.textContent = todos[index].description;
-        todoItem.appendChild(todoDescription);
-
-        // buttons
-        // create delete Button and add ot to div(todoItem)
-        const todoDeleteButton = document.createElement('button');
-        todoDeleteButton.textContent = 'Delete';
-        todoDeleteButton.addEventListener('click', () => deleteTodo(index));
-        todoItem.appendChild(todoDeleteButton);
-
-        // create edit Button and add ot to div(todoItem)
-        const todoEditButton = document.createElement('button');
-        todoEditButton.textContent = 'Edit';
-        todoItem.appendChild(todoEditButton);
-        todoEditButton.addEventListener('click', () => editTodo(index));
-
-        todosList.appendChild(todoItem);
+        createTodoElement(todos, index);
       }
+
+      //create delete all Button to div(todoItem)
+      deleteAllBtn.textContent = 'Delete All';
+      deleteAllBtn.addEventListener('click', () => deleteAllTodos());
+      deleteAllBtn.style.display = 'initial';
+      //  footer.appendChild(todoDeleteButton);
 
       todosCount.textContent = `Number of todos: ${todos.length}`;
     } catch (error) {
       console.log('An error occured while fetching todo');
     }
   }
+}
+
+function createTodoElement(todos, index) {
+  //create div for todo item
+  const todoItem = document.createElement('div');
+  todoItem.classList.add('todo'); //class todo for styling item--do later
+
+  //create checkbox for todo item and add it to div(todoItem)
+  const todoCheckbox = document.createElement('input');
+  todoCheckbox.type = 'checkbox';
+  todoCheckbox.checked = todos[index].completed;
+  todoItem.appendChild(todoCheckbox);
+
+  // create description for todo item and add it to div(todoItem)
+  const todoDescription = document.createElement('p');
+  todoDescription.textContent = todos[index].description;
+  todoItem.appendChild(todoDescription);
+
+  // buttons
+  // create delete Button and add ot to div(todoItem)
+  const todoDeleteButton = document.createElement('button');
+  todoDeleteButton.innerHTML = 'delete';
+  todoDeleteButton.addEventListener('click', () => deleteTodo(index));
+  todoItem.appendChild(todoDeleteButton);
+
+  // create edit Button and add ot to div(todoItem)
+  const todoEditButton = document.createElement('button');
+  todoEditButton.textContent = 'Edit';
+  todoItem.appendChild(todoEditButton);
+  todoEditButton.addEventListener('click', () => editTodo(index));
+
+  todosList.appendChild(todoItem);
+  //console.log(todoItem);
 }
 
 //add todo()
@@ -67,6 +79,7 @@ function addTodo() {
         description: todoDescription,
         completed: false,
       };
+      todoInput.value = '';
       todos.push(newTodo);
       displayTodos(todos);
       localStorage.setItem('todos', JSON.stringify(todos));
@@ -87,9 +100,13 @@ function deleteTodo(index) {
 }
 
 // //delete all todos
-// searchForm.addEventListener('submit', function (event) {
-//   console.log('hi');
-//   todosList.innerHTML = '';
+function deleteAllTodos() {
+  todosList.innerHTML = '';
+  localStorage.removeItem('todos', JSON.stringify(todos));
+  todos = [];
+  todosCount.textContent = `Number of todos: ${todos.length}`;
+}
+
 // });
 
 //edit todo
@@ -109,6 +126,10 @@ function editTodo(index) {
 //search todo
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
+  const serchString = todoInputSearch.value.trim();
+  if (serchString) {
+    alert('test');
+  }
 });
 
 function loadDataFromLocalStorage() {
@@ -126,4 +147,5 @@ function loadDataFromLocalStorage() {
 window.addEventListener('DOMContentLoaded', loadDataFromLocalStorage);
 
 addButton.addEventListener('click', addTodo);
+
 displayTodos(todos);
