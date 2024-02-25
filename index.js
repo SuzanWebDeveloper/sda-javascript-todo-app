@@ -27,7 +27,6 @@ function displayTodos(todos) {
       deleteAllBtn.style.display = 'initial';
 
       todosCount.textContent = `Number of todos: ${todos.length}`;
-
     } catch (error) {
       console.log('An error occured while fetching todo');
     }
@@ -37,7 +36,7 @@ function displayTodos(todos) {
 function createTodoElement(todos, index) {
   //create div for todo item
   const todoItem = document.createElement('div');
-  todoItem.classList.add('todo'); 
+  todoItem.classList.add('todo');
 
   //create checkbox for todo item and add it to div(todoItem)
   const todoCheckbox = document.createElement('input');

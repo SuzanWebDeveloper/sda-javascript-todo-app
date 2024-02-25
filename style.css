@@ -7,15 +7,16 @@
   color: #393939;
 }
 h1 {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: #c58011;
+  
 }
 .todos-container {
   background-color: #faf4ea;
   text-align: center;
   margin: 5rem auto 3rem;
-  padding: 4rem 6.5rem;
-  max-width: 600px;
+  padding: 3rem 3rem 4rem;
+  max-width: 450px;
   border-radius: 1rem;
 }
 
