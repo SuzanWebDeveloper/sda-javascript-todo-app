@@ -15,12 +15,9 @@ let todos = [];
 // display todos
 function displayTodos(todos) {
   todosList.innerHTML = '';
-  if (todos.length === 0) {
-    // console.log('no todos found');
-  } else {
+  if (todos.length) {
     try {
       for (let index = 0; index < todos.length; index++) {
-        // console.log(todos[index].description);
         createTodoElement(todos, index);
       }
 
@@ -28,9 +25,9 @@ function displayTodos(todos) {
       deleteAllBtn.textContent = 'Delete All';
       deleteAllBtn.addEventListener('click', () => deleteAllTodos());
       deleteAllBtn.style.display = 'initial';
-      //  footer.appendChild(todoDeleteButton);
 
       todosCount.textContent = `Number of todos: ${todos.length}`;
+
     } catch (error) {
       console.log('An error occured while fetching todo');
     }
@@ -40,7 +37,7 @@ function displayTodos(todos) {
 function createTodoElement(todos, index) {
   //create div for todo item
   const todoItem = document.createElement('div');
-  todoItem.classList.add('todo'); //class todo for styling item--do later
+  todoItem.classList.add('todo'); 
 
   //create checkbox for todo item and add it to div(todoItem)
   const todoCheckbox = document.createElement('input');
@@ -69,7 +66,6 @@ function createTodoElement(todos, index) {
   todoItem.appendChild(todoDeleteButton);
 
   todosList.appendChild(todoItem);
-  //console.log(todoItem);
 }
 
 //add todo()
@@ -103,15 +99,13 @@ function deleteTodo(index) {
     todosCount.textContent = `Number of todos: ${todos.length}`;
 }
 
-// //delete all todos
+//delete all todos
 function deleteAllTodos() {
   todosList.innerHTML = '';
   localStorage.removeItem('todos', JSON.stringify(todos));
   todos = [];
   todosCount.textContent = `Number of todos: ${todos.length}`;
 }
-
-// });
 
 //edit todo
 function editTodo(index) {
@@ -133,13 +127,9 @@ searchForm.addEventListener('submit', function (event) {
   const searchKey = todoInputSearch.value.trim();
   if (searchKey) {
     const todos = document.querySelectorAll('.todo');
-    // console.log(todos1);
     todos.forEach(function (el) {
-      //console.log(el.textContent);
       if (el.textContent.toLowerCase().indexOf(searchKey.toLowerCase()) > -1)
-        // console.log('found');
         el.classList.remove('hidden');
-      //console.log(' not found');
       else el.classList.add('hidden');
     });
   }
