@@ -121,8 +121,8 @@ function editTodo(index) {
 }
 
 //search todo
-searchForm.addEventListener('submit', function (event) {
-  event.preventDefault();
+todoInputSearch.addEventListener('input', function (event) {
+  // event.preventDefault();
   const searchKey = todoInputSearch.value.trim();
   if (searchKey) {
     const todos = document.querySelectorAll('.todo');
@@ -133,6 +133,18 @@ searchForm.addEventListener('submit', function (event) {
     });
   }
 
+  //  //search todo
+  // searchForm.addEventListener('submit', function (event) {
+  //   event.preventDefault();
+  //   const searchKey = todoInputSearch.value.trim();
+  //   if (searchKey) {
+  //     const todos = document.querySelectorAll('.todo');
+  //     todos.forEach(function (el) {
+  //       if (el.textContent.toLowerCase().indexOf(searchKey.toLowerCase()) > -1)
+  //         el.classList.remove('hidden');
+  //       else el.classList.add('hidden');
+  //     });
+  //   }
   //clear serch input and results ??
   //todoInputSearch.value = '';
 });
