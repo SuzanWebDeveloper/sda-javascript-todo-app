@@ -107,6 +107,22 @@ p {
   display: none;
 }
 
+
+.strikeOut{
+    text-decoration: line-through;
+    color: #7e7d7d;
+
+}
+
+/* input:checked+p{
+    text-decoration: line-through;
+
+} */
+/* 
+.checked{
+  text-decoration: line-through;
+} */
+
 /* keep for later */
 /* button:hover {
   background-color: #966214c7;

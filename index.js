@@ -43,6 +43,14 @@ function createTodoElement(todos, index) {
   todoCheckbox.type = 'checkbox';
   todoCheckbox.checked = todos[index].completed;
   todoItem.appendChild(todoCheckbox);
+  //**new added code for checked strikeout **
+  todoCheckbox.classList.add('checked');
+  todoCheckbox.addEventListener('click', () => handleCheck(index));
+  function handleCheck(index) {
+    console.log(todoCheckbox.checked);
+    todoCheckbox.nextSibling.classList.toggle('strikeOut');
+  }
+  //-----------------
 
   // create description for todo item and add it to div(todoItem)
   const todoDescription = document.createElement('p');
