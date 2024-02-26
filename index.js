@@ -43,12 +43,17 @@ function createTodoElement(todos, index) {
   todoCheckbox.type = 'checkbox';
   todoCheckbox.checked = todos[index].completed;
   todoItem.appendChild(todoCheckbox);
-  //**new added code for checked strikeout **
+
+  //**new added code for checked and strikeout **
   todoCheckbox.classList.add('checked');
   todoCheckbox.addEventListener('click', () => handleCheck(index));
   function handleCheck(index) {
-    console.log(todoCheckbox.checked);
-    todoCheckbox.nextSibling.classList.toggle('strikeOut');
+    const checkedStatus = todoCheckbox.checked;
+    // todoCheckbox.nextSibling.classList.toggle('strikeOut');
+    todos[index].completed = checkedStatus;
+    localStorage.setItem('todos', JSON.stringify(todos));
+    if (checkedStatus) todoCheckbox.nextSibling.classList.add('strikeOut');
+    else todoCheckbox.nextSibling.classList.remove('strikeOut');
   }
   //-----------------
 
@@ -121,6 +126,9 @@ function editTodo(index) {
     if (updatedDescription) {
       todos[index].description = updatedDescription;
       localStorage.setItem('todos', JSON.stringify(todos));
+      if (todos[index].checked)
+        todoCheckbox.nextSibling.classList.add('strikeOut');
+      else todoCheckbox.nextSibling.classList.remove('strikeOut');
       displayTodos(todos);
     }
   } catch (error) {
@@ -141,21 +149,6 @@ todoInputSearch.addEventListener('input', function (event) {
       else el.classList.add('hidden');
     });
   }
-
-  //  //search todo
-  // searchForm.addEventListener('submit', function (event) {
-  //   event.preventDefault();
-  //   const searchKey = todoInputSearch.value.trim();
-  //   if (searchKey) {
-  //     const todos = document.querySelectorAll('.todo');
-  //     todos.forEach(function (el) {
-  //       if (el.textContent.toLowerCase().indexOf(searchKey.toLowerCase()) > -1)
-  //         el.classList.remove('hidden');
-  //       else el.classList.add('hidden');
-  //     });
-  //   }
-  //clear serch input and results ??
-  //todoInputSearch.value = '';
 });
 
 function loadDataFromLocalStorage() {
