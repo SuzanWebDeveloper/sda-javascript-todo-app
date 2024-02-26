@@ -123,6 +123,7 @@ function editTodo(index) {
 //search todo
 todoInputSearch.addEventListener('input', function (event) {
   // event.preventDefault();
+  todosCount.textContent = '';
   const searchKey = todoInputSearch.value.trim();
   if (searchKey) {
     const todos = document.querySelectorAll('.todo');
