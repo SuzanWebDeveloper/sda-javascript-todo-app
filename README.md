@@ -1,10 +1,12 @@
 # Todo App
 
+Link: https://todo-app-suz.netlify.app/
+
 This project aims to build a to do list application by applying HTML, CSS and Javascript.  The application allows users to manage their tasks effectively.
 
-## Level 1: Todo App Basic Requirements
 
-In this level, the application includes the following features:
+
+The application includes the following features:
 
 1. Adding a Todo:
    - Display an input field where users can enter a new todo item.
